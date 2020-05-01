@@ -3,7 +3,7 @@ setup to work with [Drone OS](https://www.drone-os.com/)
 
 It sets up the system clock to run at 96 MHz (a bit lower than the max 100 MHz so that the USB peripheral gets a nice clock)
 
-This build uses a patched version of drone-os v0.11
+This build uses a patched version of drone-os v0.12
 
 ## WeAct F411 notes
 * STM32F411CEU6
@@ -17,10 +17,8 @@ This build uses a patched version of drone-os v0.11
 * USB-C connector
 
 ## Other modifications
-* `rust-toolchain` set to `nightly-2019-11-06`. This should
-be resolved when drone-os v0.12 is released and then it can revert to `nightly`.
-* `Drone.toml` changed `gdb-client` to be `arm-none-eabi-gdb`.
-* `Drone.toml` changed `uart-endpoint` and `gdb-endpoint` to match the USB names that my Black Magic Probe shows up as under MacOS.
+* `Drone.toml` changed `gdb-client` to be `arm-none-eabi-gdb`, since I haven't found gdb-multiarch for MacOS.
+* `Drone.toml` changed `serial-endpoint` and `gdb-endpoint` to match the USB names that my Black Magic Probe shows up as under MacOS.
 * `Cargo.toml` points `drone-stm32-map` to locally patched `drone-stm32-map` repository.
 
 To build - assuming other setup has been done as per the [Drone Book](https://book.drone-os.com/)
@@ -34,5 +32,6 @@ just build
 ```
 
 I have a [PR](https://github.com/drone-os/drone-stm32-map/pull/9) to do some fixups on the RCC_PLLCFGR register.
-The [dhylands-patches](https://github.com/dhylands/drone-stm32-map/tree/dhylands-patches) includes this PR
+This has been merged into master, but I don't think it's released yet. Until it's released, the
+[dhylands-patches](https://github.com/dhylands/drone-stm32-map/tree/dhylands-patches) includes this change
 plus a bunch of edits to the `Cargo.toml` files to make them use crates from github rather than locally.

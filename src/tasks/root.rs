@@ -1,7 +1,8 @@
 //! The root task.
 
-use crate::{consts::*, thr, thr::Thrs, Regs};
-use drone_cortex_m::{fib, /*itm,*/ reg::prelude::*, thr::prelude::*};
+use crate::{consts::*, thr, thr::ThrsInit, Regs};
+//use drone_core::log;
+use drone_cortexm::{fib, reg::prelude::*, /*swo,*/ thr::prelude::*};
 use drone_stm32_map::{
     periph::{
         gpio::{periph_gpio_c, GpioC, GpioPortPeriph},
@@ -17,8 +18,8 @@ pub struct TickOverflow;
 
 /// The root task handler.
 #[inline(never)]
-pub fn handler(reg: Regs) {
-    let (thr, _) = thr::init!(reg, Thrs);
+pub fn handler(reg: Regs, thr_init: ThrsInit) {
+    let thr = thr::init(thr_init);
     let gpio_c = periph_gpio_c!(reg);
     let sys_tick = periph_sys_tick!(reg);
 

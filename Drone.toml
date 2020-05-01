@@ -20,14 +20,15 @@ pools = [
 ]
 
 [probe]
-gdb-client = "arm-none-eabi-gdb"
-
-[probe.itm]
-reset-freq = 16000000
-baud-rate = 115200
-encoding = "nrz"
-uart-endpoint = "/dev/cu.usbmodem7ABA4DC13"
+gdb-client-command = "arm-none-eabi-gdb"
 
 [probe.bmp]
 device = "stm32f411"
 gdb-endpoint = "/dev/cu.usbmodem7ABA4DC11"
+
+[log.swo]
+reset-freq = 16000000
+baud-rate = 115200
+serial-endpoint = "/dev/cu.usbmodem7ABA4DC13"
+
+

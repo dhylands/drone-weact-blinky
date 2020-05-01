@@ -1,9 +1,9 @@
 //! The threads.
 
-pub use drone_cortex_m::thr::init;
+pub use drone_cortexm::thr::{init, init_extended};
 pub use drone_stm32_map::thr::*;
 
-use drone_cortex_m::thr;
+use drone_cortexm::thr;
 
 thr::vtable! {
     use Thr;
@@ -16,6 +16,9 @@ thr::vtable! {
 
     /// A set of thread tokens.
     pub struct Thrs;
+
+    /// Threads initialization token.
+    pub struct ThrsInit;
 
     /// The array of thread data.
     static THREADS;

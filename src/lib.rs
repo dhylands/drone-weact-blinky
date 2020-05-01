@@ -12,24 +12,28 @@ pub mod thr;
 
 #[prelude_import]
 #[allow(unused_imports)]
-use drone_cortex_m::prelude::*;
+use drone_core::prelude::*;
 
 use drone_core::heap;
 use drone_stm32_map::stm32_reg_tokens;
 
+drone_cortexm::swo::set_log!();
+
 stm32_reg_tokens! {
     /// A set of tokens for all memory-mapped registers.
     pub struct Regs;
+
+    !dwt_cyccnt;
+    !itm_tpr; !itm_tcr; !itm_lar;
+    !tpiu_acpr; !tpiu_sppr; !tpiu_ffcr;
+
+    !scb_ccr;
+    !mpu_type; !mpu_ctrl; !mpu_rnr; !mpu_rbar; !mpu_rasr;
 }
 
 heap! {
     /// A heap allocator generated from the `Drone.toml`.
     pub struct Heap;
-
-    #[cfg(feature = "heaptrace")] use drone_cortex_m::itm::trace_alloc;
-    #[cfg(feature = "heaptrace")] use drone_cortex_m::itm::trace_dealloc;
-    #[cfg(feature = "heaptrace")] use drone_cortex_m::itm::trace_grow_in_place;
-    #[cfg(feature = "heaptrace")] use drone_cortex_m::itm::trace_shrink_in_place;
 }
 
 /// The global allocator.
