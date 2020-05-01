@@ -1,0 +1,33 @@
+[memory.flash]
+size = "512K"
+origin = 0x08000000
+
+[memory.ram]
+size = "128K"
+origin = 0x20000000
+
+[heap]
+size = "64K"
+pools = [
+    { block = "4", capacity = 755 },
+    { block = "20", capacity = 377 },
+    { block = "108", capacity = 97 },
+    { block = "324", capacity = 38 },
+    { block = "708", capacity = 17 },
+    { block = "1304", capacity = 8 },
+    { block = "2148", capacity = 3 },
+    { block = "3276", capacity = 1 },
+]
+
+[probe]
+gdb-client = "arm-none-eabi-gdb"
+
+[probe.itm]
+reset-freq = 16000000
+baud-rate = 115200
+encoding = "nrz"
+uart-endpoint = "/dev/cu.usbmodem7ABA4DC13"
+
+[probe.bmp]
+device = "stm32f411"
+gdb-endpoint = "/dev/cu.usbmodem7ABA4DC11"

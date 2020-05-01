@@ -1,0 +1,29 @@
+[package]
+name = "weact-blinky"
+version = "0.1.0"
+authors = ["Dave Hylands <davehylands@fullstory.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[[bin]]
+name = "weact-blinky"
+path = "src/bin.rs"
+test = false
+doc = false
+
+[features]
+default = []
+std = ["drone-core/std", "drone-cortex-m/std", "futures/std"]
+heaptrace = []
+
+[dependencies]
+core = { version = "0.11.0", package = "libcore-drone" }
+drone-core = { version = "0.11.0" }
+drone-cortex-m = { version = "0.11.0", features = ["fpu"] }
+drone-stm32-map = { path = "../drone-os-patched/drone-stm32-map", features = ["adc", "dma", "exti", "gpio", "tim"] }
+futures = { version = "0.3.0", default-features = false }
+
+[profile.release]
+lto = true
+panic = "abort"
