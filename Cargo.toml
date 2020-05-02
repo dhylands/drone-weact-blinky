@@ -26,7 +26,6 @@ std = [
 heaptrace = ["drone-core/heaptrace"]
 
 [dependencies]
-#core = { version = "0.12.0", package = "libcore-drone" }
 drone-core = { version = "0.12.0" }
 drone-cortexm = { version = "0.12.0", features = ["bit-band", "floating-point-unit", "memory-protection-unit"] }
 drone-stm32-map = { path = "../drone-os-patched/drone-stm32-map", features = ["adc", "dma", "exti", "gpio", "tim"] }

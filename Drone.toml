@@ -31,4 +31,3 @@ reset-freq = 16000000
 baud-rate = 115200
 serial-endpoint = "/dev/cu.usbmodem7ABA4DC13"
 
-
