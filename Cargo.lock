@@ -120,7 +120,9 @@ dependencies = [
 
 [[package]]
 name = "drone-stm32-map"
-version = "0.12.0"
+version = "0.12.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f810034b3b5a89724b3ff7208c578d771fdf7f76c27ef4cb0b15498defb7bfbe"
 dependencies = [
  "drone-core",
  "drone-cortexm",
@@ -134,7 +136,9 @@ dependencies = [
 
 [[package]]
 name = "drone-stm32-map-periph-adc"
-version = "0.12.0"
+version = "0.12.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "488c1e84ac683ba0cb62a2bd3ecd85200536f837cb6cda08bc8319f406f47fbc"
 dependencies = [
  "drone-core",
  "drone-cortexm",
@@ -143,7 +147,9 @@ dependencies = [
 
 [[package]]
 name = "drone-stm32-map-periph-dma"
-version = "0.12.0"
+version = "0.12.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5bbec5a0aab919a4c3750bcf2d04acbafa8d89d558e77366e4976ee1b2a8f493"
 dependencies = [
  "drone-core",
  "drone-cortexm",
@@ -152,7 +158,9 @@ dependencies = [
 
 [[package]]
 name = "drone-stm32-map-periph-exti"
-version = "0.12.0"
+version = "0.12.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "78e481d9aacf9286e7bf2d51c6a9b19c0b84c26fab5839d4e06f2ad2a09d9b89"
 dependencies = [
  "drone-core",
  "drone-cortexm",
@@ -161,7 +169,9 @@ dependencies = [
 
 [[package]]
 name = "drone-stm32-map-periph-gpio"
-version = "0.12.0"
+version = "0.12.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2c3f88d8442b3a2044d8f742bc0de062b875aa67213eae58716e51461517c4c7"
 dependencies = [
  "drone-core",
  "drone-cortexm",
@@ -170,7 +180,9 @@ dependencies = [
 
 [[package]]
 name = "drone-stm32-map-periph-tim"
-version = "0.12.0"
+version = "0.12.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a9ecd5b8a8c9a4dc5316283298b914c621b74778e0ec00bfb322cf59bf6dfba8"
 dependencies = [
  "drone-core",
  "drone-cortexm",
@@ -179,7 +191,9 @@ dependencies = [
 
 [[package]]
 name = "drone-stm32-map-pieces"
-version = "0.12.0"
+version = "0.12.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7c890a651fe3c6cb4968a86e37f6a2bd24f21b03b2b8a0459f8a7a74d6792eea"
 dependencies = [
  "drone-core",
  "drone-cortexm",
@@ -200,7 +214,9 @@ dependencies = [
 
 [[package]]
 name = "drone-stm32-map-pieces-1"
-version = "0.12.0"
+version = "0.12.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4afe2b7574758fb13ef20d05f915c428b972821f3a023e82bd950efbcdcdcbfd"
 dependencies = [
  "drone-core",
  "drone-cortexm",
@@ -209,7 +225,9 @@ dependencies = [
 
 [[package]]
 name = "drone-stm32-map-pieces-10"
-version = "0.12.0"
+version = "0.12.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "58d3916565186d1453cb7548b3e75013968ccf0c6dc5db4dcb9f98849d8ac1a0"
 dependencies = [
  "drone-core",
  "drone-cortexm",
@@ -218,7 +236,9 @@ dependencies = [
 
 [[package]]
 name = "drone-stm32-map-pieces-11"
-version = "0.12.0"
+version = "0.12.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "27cc97543ff15e26e71a65975cc0479c61d70ed6a36f1923c1070c426a74033f"
 dependencies = [
  "drone-core",
  "drone-cortexm",
@@ -227,7 +247,9 @@ dependencies = [
 
 [[package]]
 name = "drone-stm32-map-pieces-12"
-version = "0.12.0"
+version = "0.12.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e96bb4a66e059c1d486ad8467c81516169ec6df6ed94453641f2615fd4d6479c"
 dependencies = [
  "drone-core",
  "drone-cortexm",
@@ -236,7 +258,9 @@ dependencies = [
 
 [[package]]
 name = "drone-stm32-map-pieces-2"
-version = "0.12.0"
+version = "0.12.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a28797f7c0118aa9a89d4a2e527b675f4c2bafebd5bc21c0a82ade01606856de"
 dependencies = [
  "drone-core",
  "drone-cortexm",
@@ -245,7 +269,9 @@ dependencies = [
 
 [[package]]
 name = "drone-stm32-map-pieces-3"
-version = "0.12.0"
+version = "0.12.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "325f896c3ad1670a58dfc576c340ca056c3bbee803a6b1f17752e9b7f1a77f3b"
 dependencies = [
  "drone-core",
  "drone-cortexm",
@@ -254,7 +280,9 @@ dependencies = [
 
 [[package]]
 name = "drone-stm32-map-pieces-4"
-version = "0.12.0"
+version = "0.12.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d8200111f6c29bc53d39fe29f7bd4e942406848ff2ecacd4b6faa876dbf2bd0a"
 dependencies = [
  "drone-core",
  "drone-cortexm",
@@ -263,7 +291,9 @@ dependencies = [
 
 [[package]]
 name = "drone-stm32-map-pieces-5"
-version = "0.12.0"
+version = "0.12.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "07c0d9409a51a497b2eef1a8cd25375bc43b13585209032c3037627ce954fce7"
 dependencies = [
  "drone-core",
  "drone-cortexm",
@@ -272,7 +302,9 @@ dependencies = [
 
 [[package]]
 name = "drone-stm32-map-pieces-6"
-version = "0.12.0"
+version = "0.12.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c8453353b64d4aa7547bdb52f16479b39b2f7adf375d28820082329625e1c251"
 dependencies = [
  "drone-core",
  "drone-cortexm",
@@ -281,7 +313,9 @@ dependencies = [
 
 [[package]]
 name = "drone-stm32-map-pieces-7"
-version = "0.12.0"
+version = "0.12.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "985986a999cefa131cad595e30925d9d46f1a1d07fccef322dd36ee4bfa16591"
 dependencies = [
  "drone-core",
  "drone-cortexm",
@@ -290,7 +324,9 @@ dependencies = [
 
 [[package]]
 name = "drone-stm32-map-pieces-8"
-version = "0.12.0"
+version = "0.12.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "66ccb75148cc17d26ba8916e6813ef605acb6a7384cf57214f73c9af8026e3d2"
 dependencies = [
  "drone-core",
  "drone-cortexm",
@@ -299,7 +335,9 @@ dependencies = [
 
 [[package]]
 name = "drone-stm32-map-pieces-9"
-version = "0.12.0"
+version = "0.12.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5f5fa76db3cd0d34b0af5a86cddf9ab96b18f719a39028e77446b0da2e7f2706"
 dependencies = [
  "drone-core",
  "drone-cortexm",
@@ -308,7 +346,9 @@ dependencies = [
 
 [[package]]
 name = "drone-stm32-map-svd"
-version = "0.12.0"
+version = "0.12.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a6a2fa8d324395a170696e44121402dd309f310637840240837c8e24a900a3e1"
 dependencies = [
  "anyhow",
  "drone-svd",
@@ -590,7 +630,7 @@ checksum = "826e7639553986605ec5979c7dd957c7895e93eabed50ab2ffa7f6128a75097c"
 
 [[package]]
 name = "weact-blinky"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "drone-core",
  "drone-cortexm",

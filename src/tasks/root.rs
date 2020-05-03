@@ -7,7 +7,7 @@ use crate::{consts::*, thr, thr::ThrsInit, Regs};
 use drone_cortexm::{fib, reg::prelude::*, /*swo,*/ thr::prelude::*};
 use drone_stm32_map::{
     periph::{
-        gpio::{periph_gpio_c13, pin::GpioC13, pin::GpioPinMap, pin::GpioPinPeriph},
+        gpio::{periph_gpio_c13, pin::GpioPinMap, pin::GpioPinPeriph},
         sys_tick::{periph_sys_tick, SysTickPeriph},
     },
     reg,
@@ -41,7 +41,7 @@ pub fn handler(reg: Regs, thr_init: ThrsInit) {
     // Enable power for GPIOC
     reg.rcc_ahb1enr.gpiocen.set_bit();
 
-    let led: GpioPinPeriph<GpioC13> = periph_gpio_c13!(reg);
+    let led = periph_gpio_c13!(reg);
 
     beacon(led, sys_tick, thr.sys_tick)
         .root_wait()

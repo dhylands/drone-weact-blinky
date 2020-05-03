@@ -2,7 +2,7 @@ cargo-features = ["resolver"]
 
 [package]
 name = "weact-blinky"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Dave Hylands <davehylands@fullstory.com>"]
 edition = "2018"
 resolver = "2"
@@ -28,7 +28,7 @@ heaptrace = ["drone-core/heaptrace"]
 [dependencies]
 drone-core = { version = "0.12.0" }
 drone-cortexm = { version = "0.12.0", features = ["bit-band", "floating-point-unit", "memory-protection-unit"] }
-drone-stm32-map = { path = "../drone-os-patched/drone-stm32-map", features = ["adc", "dma", "exti", "gpio", "tim"] }
+drone-stm32-map = { version = "0.12.1", features = ["adc", "dma", "exti", "gpio", "tim"] }
 futures = { version = "0.3.0", default-features = false }
 
 [profile.release]

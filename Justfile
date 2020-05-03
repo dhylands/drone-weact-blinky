@@ -1,4 +1,4 @@
-export DRONE_RUSTFLAGS := '--cfg cortex_m_core="cortex_m4f_r0p1" --cfg stm32_mcu="stm32f411"'
+export DRONE_RUSTFLAGS := '--cfg cortexm_core="cortexm4f_r0p1" --cfg stm32_mcu="stm32f411"'
 target := 'thumbv7em-none-eabihf'
 features := ''
 name := `basename $(pwd)`
