@@ -30,11 +30,12 @@ pub fn handler(reg: Regs, thr_init: ThrsInit) {
         reg.rcc_pllcfgr,
         reg.rcc_cfgr,
         reg.rcc_cr,
+        reg.rcc_cir,
         reg.rcc_apb1enr,
         thr.rcc,
     );
 
-    sys_clk.raise_system_frequency(reg.rcc_cir).root_wait();
+    sys_clk.raise_system_frequency().root_wait();
 
     // Enable power for GPIOC
     reg.rcc_ahb1enr.gpiocen.set_bit();
