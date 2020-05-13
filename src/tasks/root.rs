@@ -1,6 +1,10 @@
 //! The root task.
 
-use crate::{clock::raise_system_frequency, consts::*, led::*, thr, thr::ThrsInit, Regs};
+use crate::{clock::SystemClock, thr, thr::ThrsInit, Regs};
+use drone_stm32f4_utils::{
+    gpioled::{Active, GpioLed},
+    led::Led,
+};
 use drone_cortexm::{fib, reg::prelude::*, thr::prelude::*};
 use drone_stm32_map::periph::{
     gpio::periph_gpio_c13,
@@ -20,24 +24,24 @@ pub fn handler(reg: Regs, thr_init: ThrsInit) {
 
     thr.hard_fault.add_once(|| panic!("Hard Fault"));
 
-    raise_system_frequency(
+    let sys_clk = SystemClock::init(
         reg.flash_acr,
         reg.pwr_cr,
         reg.rcc_pllcfgr,
         reg.rcc_cfgr,
-        reg.rcc_cir,
         reg.rcc_cr,
         reg.rcc_apb1enr,
         thr.rcc,
-    )
-    .root_wait();
+    );
+
+    sys_clk.raise_system_frequency(reg.rcc_cir).root_wait();
 
     // Enable power for GPIOC
     reg.rcc_ahb1enr.gpiocen.set_bit();
 
-    let led = PinLed::init(periph_gpio_c13!(reg), Active::Low);
+    let led = GpioLed::init(periph_gpio_c13!(reg), Active::Low);
 
-    beacon(&led, sys_tick, thr.sys_tick)
+    beacon(&led, sys_clk, sys_tick, thr.sys_tick)
         .root_wait()
         .expect("beacon fail");
 
@@ -47,6 +51,7 @@ pub fn handler(reg: Regs, thr_init: ThrsInit) {
 
 async fn beacon(
     led: &dyn Led,
+    sys_clk: SystemClock,
     sys_tick: SysTickPeriph,
     thr_sys_tick: thr::SysTick,
 ) -> Result<(), TickOverflow> {
@@ -67,7 +72,7 @@ async fn beacon(
     // 8, so the reload will be triggered each 125 ms.
     sys_tick
         .stk_load
-        .store(|r| r.write_reload(SYS_TICK_FREQ / 8));
+        .store(|r| r.write_reload(sys_clk.systick_frequency() / 8));
     sys_tick.stk_ctrl.store(|r| {
         r.set_tickint() // Counting down to 0 triggers the SysTick interrupt
             .set_enable() // Start the counter in a multi-shot way

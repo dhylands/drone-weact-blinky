@@ -130,6 +130,7 @@ dependencies = [
  "drone-stm32-map-periph-dma",
  "drone-stm32-map-periph-exti",
  "drone-stm32-map-periph-gpio",
+ "drone-stm32-map-periph-i2c",
  "drone-stm32-map-periph-tim",
  "drone-stm32-map-pieces",
 ]
@@ -172,6 +173,17 @@ name = "drone-stm32-map-periph-gpio"
 version = "0.12.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2c3f88d8442b3a2044d8f742bc0de062b875aa67213eae58716e51461517c4c7"
+dependencies = [
+ "drone-core",
+ "drone-cortexm",
+ "drone-stm32-map-pieces",
+]
+
+[[package]]
+name = "drone-stm32-map-periph-i2c"
+version = "0.12.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4258056e50d0d0d8c71ff49b7be8908c288c56b32f05af7a35a72afabe7f5737"
 dependencies = [
  "drone-core",
  "drone-cortexm",
@@ -352,6 +364,17 @@ checksum = "a6a2fa8d324395a170696e44121402dd309f310637840240837c8e24a900a3e1"
 dependencies = [
  "anyhow",
  "drone-svd",
+]
+
+[[package]]
+name = "drone-stm32f4-utils"
+version = "0.1.0"
+source = "git+https://github.com/dhylands/drone-stm32f4-utils#3df7cb4f0d13b0e228db0eb2218197cd7550aa74"
+dependencies = [
+ "drone-core",
+ "drone-cortexm",
+ "drone-stm32-map",
+ "futures",
 ]
 
 [[package]]
@@ -635,6 +658,7 @@ dependencies = [
  "drone-core",
  "drone-cortexm",
  "drone-stm32-map",
+ "drone-stm32f4-utils",
  "futures",
 ]
 
