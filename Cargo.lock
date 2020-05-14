@@ -369,7 +369,7 @@ dependencies = [
 [[package]]
 name = "drone-stm32f4-utils"
 version = "0.1.0"
-source = "git+https://github.com/dhylands/drone-stm32f4-utils#3df7cb4f0d13b0e228db0eb2218197cd7550aa74"
+source = "git+https://github.com/dhylands/drone-stm32f4-utils#31a0eff476f5c1b6bede505230fda8e02ef82b90"
 dependencies = [
  "drone-core",
  "drone-cortexm",

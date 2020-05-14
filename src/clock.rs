@@ -36,9 +36,10 @@ pub trait SystemClockConsts {
 pub struct SystemClock {
     flash_acr: reg::flash::Acr<Srt>,
     pwr_cr: reg::pwr::Cr<Srt>,
+    rcc_cr: reg::rcc::Cr<Srt>,
     rcc_pllcfgr: reg::rcc::Pllcfgr<Srt>,
     rcc_cfgr: reg::rcc::Cfgr<Srt>,
-    rcc_cr: reg::rcc::Cr<Srt>,
+    rcc_cir: reg::rcc::Cir<Crt>,
     rcc_apb1enr: reg::rcc::Apb1Enr<Srt>,
     thr_rcc: thr::Rcc,
 }
@@ -47,18 +48,20 @@ impl SystemClock {
     pub fn init(
         flash_acr: reg::flash::Acr<Srt>,
         pwr_cr: reg::pwr::Cr<Srt>,
+        rcc_cr: reg::rcc::Cr<Srt>,
         rcc_pllcfgr: reg::rcc::Pllcfgr<Srt>,
         rcc_cfgr: reg::rcc::Cfgr<Srt>,
-        rcc_cr: reg::rcc::Cr<Srt>,
+        rcc_cir: reg::rcc::Cir<Crt>,
         rcc_apb1enr: reg::rcc::Apb1Enr<Srt>,
         thr_rcc: thr::Rcc,
     ) -> Self {
         Self {
             flash_acr,
             pwr_cr,
+            rcc_cr,
             rcc_pllcfgr,
             rcc_cfgr,
-            rcc_cr,
+            rcc_cir,
             rcc_apb1enr,
             thr_rcc,
         }
@@ -74,7 +77,7 @@ impl SystemClock {
         self.clock() / 8
     }
 
-    pub async fn raise_system_frequency(&self, rcc_cir: reg::rcc::Cir<Srt>) {
+    pub async fn raise_system_frequency(&self) {
         // Enable Power Control Clock.
         self.rcc_apb1enr.pwren.set_bit();
 
@@ -82,12 +85,12 @@ impl SystemClock {
         self.pwr_cr.modify(|r| r.write_vos(0b11));
 
         self.thr_rcc.enable_int();
-        rcc_cir.modify(|r| r.set_hserdyie().set_pllrdyie());
+        self.rcc_cir.modify(|r| r.set_hserdyie().set_pllrdyie());
 
         // We need to move ownership of `hserdyc` and `hserdyf` into the fiber.
         let reg::rcc::Cir {
             hserdyc, hserdyf, ..
-        } = rcc_cir;
+        } = self.rcc_cir;
         // Attach a listener that will notify us when RCC_CIR_HSERDYF is asserted.
         let hserdy = self.thr_rcc.add_future(fib::new_fn(move || {
             if hserdyf.read_bit() {
@@ -106,7 +109,7 @@ impl SystemClock {
         // We need to move ownership of `pllrdyc` and `pllrdyf` into the fiber.
         let reg::rcc::Cir {
             pllrdyc, pllrdyf, ..
-        } = rcc_cir;
+        } = self.rcc_cir;
         // Attach a listener that will notify us when RCC_CIR_PLLRDYF is asserted.
         let pllrdy = self.thr_rcc.add_future(fib::new_fn(move || {
             if pllrdyf.read_bit() {

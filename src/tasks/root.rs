@@ -2,7 +2,7 @@
 
 use crate::{clock::SystemClock, thr, thr::ThrsInit, Regs};
 use drone_stm32f4_utils::{
-    gpioled::{Active, GpioLed},
+    gpioled::GpioLedActiveLow,
     led::Led,
 };
 use drone_cortexm::{fib, reg::prelude::*, thr::prelude::*};
@@ -27,19 +27,20 @@ pub fn handler(reg: Regs, thr_init: ThrsInit) {
     let sys_clk = SystemClock::init(
         reg.flash_acr,
         reg.pwr_cr,
+        reg.rcc_cr,
         reg.rcc_pllcfgr,
         reg.rcc_cfgr,
-        reg.rcc_cr,
+        reg.rcc_cir.into_copy(),
         reg.rcc_apb1enr,
         thr.rcc,
     );
 
-    sys_clk.raise_system_frequency(reg.rcc_cir).root_wait();
+    sys_clk.raise_system_frequency().root_wait();
 
     // Enable power for GPIOC
     reg.rcc_ahb1enr.gpiocen.set_bit();
 
-    let led = GpioLed::init(periph_gpio_c13!(reg), Active::Low);
+    let led = GpioLedActiveLow::init(periph_gpio_c13!(reg));
 
     beacon(&led, sys_clk, sys_tick, thr.sys_tick)
         .root_wait()

@@ -27,6 +27,7 @@ heaptrace = ["drone-core/heaptrace"]
 
 [dependencies]
 drone-stm32f4-utils = { git = "https://github.com/dhylands/drone-stm32f4-utils" }
+#drone-stm32f4-utils = { path = "../drone-stm32f4-utils" }
 drone-core = { version = "0.12.0" }
 drone-cortexm = { version = "0.12.0", features = ["bit-band", "floating-point-unit", "memory-protection-unit"] }
 drone-stm32-map = { version = "0.12.1", features = ["adc", "dma", "exti", "gpio", "tim"] }
