@@ -7,7 +7,6 @@
 extern crate alloc;
 
 pub mod clock;
-pub mod consts;
 pub mod tasks;
 pub mod thr;
 

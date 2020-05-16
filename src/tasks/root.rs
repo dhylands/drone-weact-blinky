@@ -1,15 +1,13 @@
 //! The root task.
 
-use crate::{clock::SystemClock, thr, thr::ThrsInit, Regs};
-use drone_stm32f4_utils::{
-    gpioled::GpioLedActiveLow,
-    led::Led,
-};
+use crate::{clock::WeActSystemClock, thr, thr::ThrsInit, Regs};
 use drone_cortexm::{fib, reg::prelude::*, thr::prelude::*};
+use drone_cortexm::{fib::ThrFiberFuture, thr::ThrNvic};
 use drone_stm32_map::periph::{
     gpio::periph_gpio_c13,
     sys_tick::{periph_sys_tick, SysTickPeriph},
 };
+use drone_stm32f4_utils::{clock::SystemClockRegs, gpioled::GpioLedActiveLow, led::Led};
 use futures::prelude::*;
 
 /// An error returned when a receiver has missed too many ticks.
@@ -21,10 +19,11 @@ pub struct TickOverflow;
 pub fn handler(reg: Regs, thr_init: ThrsInit) {
     let thr = thr::init(thr_init);
     let sys_tick = periph_sys_tick!(reg);
+    let sysclk = WeActSystemClock::init();
 
     thr.hard_fault.add_once(|| panic!("Hard Fault"));
 
-    let sys_clk = SystemClock::init(
+    let sysclk_regs = SystemClockRegs::init(
         reg.flash_acr,
         reg.pwr_cr,
         reg.rcc_cr,
@@ -33,16 +32,17 @@ pub fn handler(reg: Regs, thr_init: ThrsInit) {
         reg.rcc_cir.into_copy(),
         reg.rcc_apb1enr,
         thr.rcc,
+        &sysclk,
     );
 
-    sys_clk.raise_system_frequency().root_wait();
+    sysclk_regs.raise_system_frequency().root_wait();
 
     // Enable power for GPIOC
     reg.rcc_ahb1enr.gpiocen.set_bit();
 
     let led = GpioLedActiveLow::init(periph_gpio_c13!(reg));
 
-    beacon(&led, sys_clk, sys_tick, thr.sys_tick)
+    beacon(&led, &sysclk_regs, sys_tick, thr.sys_tick)
         .root_wait()
         .expect("beacon fail");
 
@@ -50,9 +50,9 @@ pub fn handler(reg: Regs, thr_init: ThrsInit) {
     reg.scb_scr.sleeponexit.set_bit();
 }
 
-async fn beacon(
+async fn beacon<'a, THR: ThrNvic + ThrFiberFuture>(
     led: &dyn Led,
-    sys_clk: SystemClock,
+    sysclk_regs: &'a SystemClockRegs<'a, THR>,
     sys_tick: SysTickPeriph,
     thr_sys_tick: thr::SysTick,
 ) -> Result<(), TickOverflow> {
@@ -73,7 +73,7 @@ async fn beacon(
     // 8, so the reload will be triggered each 125 ms.
     sys_tick
         .stk_load
-        .store(|r| r.write_reload(sys_clk.systick_frequency() / 8));
+        .store(|r| r.write_reload(sysclk_regs.systick_frequency() / 8));
     sys_tick.stk_ctrl.store(|r| {
         r.set_tickint() // Counting down to 0 triggers the SysTick interrupt
             .set_enable() // Start the counter in a multi-shot way
