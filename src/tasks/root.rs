@@ -7,7 +7,9 @@ use drone_stm32_map::periph::{
     gpio::periph_gpio_c13,
     sys_tick::{periph_sys_tick, SysTickPeriph},
 };
-use drone_stm32f4_utils::{clock::SystemClockRegs, gpioled::GpioLedActiveLow, led::Led};
+use drone_stm32f4_utils::{
+    clock::SystemClockRegs, gpiosignal::GpioSignalActiveLow, signal::Signal,
+};
 use futures::prelude::*;
 
 /// An error returned when a receiver has missed too many ticks.
@@ -40,7 +42,7 @@ pub fn handler(reg: Regs, thr_init: ThrsInit) {
     // Enable power for GPIOC
     reg.rcc_ahb1enr.gpiocen.set_bit();
 
-    let led = GpioLedActiveLow::init(periph_gpio_c13!(reg));
+    let led = GpioSignalActiveLow::init(periph_gpio_c13!(reg));
 
     beacon(&led, &sysclk_regs, sys_tick, thr.sys_tick)
         .root_wait()
@@ -51,13 +53,13 @@ pub fn handler(reg: Regs, thr_init: ThrsInit) {
 }
 
 async fn beacon<'a, THR: ThrNvic + ThrFiberFuture>(
-    led: &dyn Led,
+    led: &dyn Signal,
     sysclk_regs: &'a SystemClockRegs<'a, THR>,
     sys_tick: SysTickPeriph,
     thr_sys_tick: thr::SysTick,
 ) -> Result<(), TickOverflow> {
     // Attach a listener that will notify us on each interrupt trigger.
-    let mut tick_stream = thr_sys_tick.add_stream_pulse(
+    let mut tick_stream = thr_sys_tick.add_pulse_try_stream(
         // This closure will be called when a receiver no longer can store the
         // number of ticks since the last stream poll. If this happens, a
         // `TickOverflow` error will be sent over the stream as is final value.
