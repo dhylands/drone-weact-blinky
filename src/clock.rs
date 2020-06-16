@@ -1,6 +1,6 @@
 //! Project constants.
 
-use drone_stm32f4_utils::clock::*;
+use dh_drone_stm32f4_utils::clock::SystemClock;
 
 pub struct WeActSystemClock {}
 
@@ -19,15 +19,6 @@ impl SystemClock for WeActSystemClock {
         25_000_000
     }
 
-    /// HSI crystal frequency.
-    fn hsi_freq(&self) -> u32 {
-        16_000_000
-    }
-
-    // VCO-freq = HSE * (PLLN / PLLM)
-    // PLL general clock = VCO-freq / PLLP
-    // USB/SDIO/RG freq = VCO-freq / PLLQ
-
     /// PLLM - Division factor for the main PLL (PLL) input clock
     fn pllm(&self) -> u32 {
         25
@@ -40,7 +31,7 @@ impl SystemClock for WeActSystemClock {
 
     /// PLLP - Main PLL division factor for main system clock
     fn pllp(&self) -> u32 {
-        PLLP_DIV2
+        2
     }
 
     /// PLLQ - Main PLL division factor for USB OTG FS, and SDIO clocks

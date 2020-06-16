@@ -7,7 +7,7 @@ use drone_stm32_map::periph::{
     gpio::periph_gpio_c13,
     sys_tick::{periph_sys_tick, SysTickPeriph},
 };
-use drone_stm32f4_utils::{
+use dh_drone_stm32f4_utils::{
     clock::SystemClockRegs, gpiosignal::GpioSignalActiveLow, signal::Signal,
 };
 use futures::prelude::*;

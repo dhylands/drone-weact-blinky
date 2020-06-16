@@ -27,7 +27,7 @@ device = "stm32f411"
 gdb-endpoint = "/dev/cu.usbmodem7ABA4DC11"
 
 [log.swo]
-reset-freq = 16000000
+reset-freq = 96000000
 baud-rate = 115200
 serial-endpoint = "/dev/cu.usbmodem7ABA4DC13"
 

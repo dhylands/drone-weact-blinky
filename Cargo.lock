@@ -38,6 +38,18 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4785bdd1c96b2a846b2bd7cc02e86b6b3dbf14e7e53446c4f54c92a361040822"
 
 [[package]]
+name = "dh-drone-stm32f4-utils"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fd1f75784457ca0dd97c5bd00aa4cac6f08ee80c37690d6025e39e7b2005b7b6"
+dependencies = [
+ "drone-core",
+ "drone-cortexm",
+ "drone-stm32-map",
+ "futures",
+]
+
+[[package]]
 name = "drone-config"
 version = "0.12.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -367,17 +379,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "drone-stm32f4-utils"
-version = "0.1.0"
-source = "git+https://github.com/dhylands/drone-stm32f4-utils#91f6b933bf290ffccee582f86e82e00946241b3b"
-dependencies = [
- "drone-core",
- "drone-cortexm",
- "drone-stm32-map",
- "futures",
-]
-
-[[package]]
 name = "drone-svd"
 version = "0.12.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -685,10 +686,10 @@ checksum = "826e7639553986605ec5979c7dd957c7895e93eabed50ab2ffa7f6128a75097c"
 name = "weact-blinky"
 version = "0.2.0"
 dependencies = [
+ "dh-drone-stm32f4-utils",
  "drone-core",
  "drone-cortexm",
  "drone-stm32-map",
- "drone-stm32f4-utils",
  "futures",
 ]
 
